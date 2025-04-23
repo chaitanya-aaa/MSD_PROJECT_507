@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>Sign Up</h2>
+    <form onsubmit="handleSignup(event)">
+      <input type="text" placeholder="Name" required />
+      <input type="email" placeholder="Email" required />
+      <input type="password" placeholder="Password" required />
+      <button type="submit">Sign Up</button>
+    </form>
+    <p>Already have an account? <a href="login.html">Click here to log in</a></p>
+  </div>
+
+  <script>
+    async function handleSignup(event) {
+      event.preventDefault();
+
+      const name = document.querySelector('input[placeholder="Name"]').value;
+      const email = document.querySelector('input[placeholder="Email"]').value;
+      const password = document.querySelector('input[placeholder="Password"]').value;
+
+      try {
+        const res = await fetch('/api/users/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, password })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          let message = data.message || 'Signup failed.';
+          if (data.suggestions) {
+            message += `\nSuggestions: ${data.suggestions.join(', ')}`;
+          }
+          alert(message);
+          return;
+        }
+
+        alert(data.message || 'Signup successful!');
+        window.location.href = 'login.html';
+      } catch (err) {
+        console.error('Signup error:', err);
+        alert('Something went wrong. Please try again later.');
+      }
+    }
+  </script>
+</body>
+</html>
