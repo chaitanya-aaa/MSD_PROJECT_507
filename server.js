@@ -6,7 +6,7 @@ const path = require('path');
 const app = express();
 
 // MongoDB Atlas Connection
-mongoose.connect('mongodb+srv://Chaitanya_Barappadi:EiffeLtower1234%23@authdb.8xfqgkj.mongodb.net/auth_db?retryWrites=true&w=majority&appName=authDB', {
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
