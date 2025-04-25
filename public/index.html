@@ -94,9 +94,29 @@
     .auth-links a:hover {
       background: #a134f7;
     }
+ #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100vw;
+      min-height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+    }
+    #bg-video::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.3); /* dark overlay */
+    }
   </style>
 </head>
 <body>
+   <video autoplay muted loop playsinline preload="auto" id="bg-video">
+       <source src="ani_vid.mp4" type="video/mp4">
+  </video>
   <div class="container">
     <h2>Welcome to My Authentication Page</h2>
 
